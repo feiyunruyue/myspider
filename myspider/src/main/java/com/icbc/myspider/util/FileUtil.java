@@ -8,7 +8,7 @@ import java.net.URLConnection;
 
 public class FileUtil {
 	
-	public static synchronized void downloadFile(String imgUrl, String filePathDir,
+	public static void downloadFile(String imgUrl, String filePathDir,
 			String fileName) throws Exception {
 		// 目标目录
 		File desPathFile = new File(filePathDir);
