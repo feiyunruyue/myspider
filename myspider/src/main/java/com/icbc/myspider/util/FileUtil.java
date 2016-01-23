@@ -3,8 +3,8 @@ package com.icbc.myspider.util;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 
 public class FileUtil {
 	
@@ -22,9 +22,13 @@ public class FileUtil {
 			return ;
 		}
 		URL url = new URL(imgUrl);
-		URLConnection con = url.openConnection();
+		HttpURLConnection con = (HttpURLConnection) url.openConnection();
 		con.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:38.0) Gecko/20100101 Firefox/38.0");
 		con.setConnectTimeout(5*1000);
+		int statusCode = con.getResponseCode();
+		if(statusCode != 200){
+			return ;
+		}
 		InputStream in = con.getInputStream();
 
 		if(in != null){
