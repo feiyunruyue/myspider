@@ -35,21 +35,19 @@ public class ImgPipeline extends FilePersistentBase implements Pipeline {
             if(postContent != null){
             	String postName = (String) fields.get("postName");
 	            for(String imgUrl: postContent){
-	    			int indexOfDot = imgUrl.lastIndexOf(".");
 	    			int indexOfSlash = imgUrl.lastIndexOf("/");
-	    			String picType = imgUrl.substring(indexOfDot + 1);
-	    			String title = imgUrl.substring(indexOfSlash + 1, indexOfDot);
+	    			String title = imgUrl.substring(indexOfSlash + 1);
 	    			
 	    			try {
 	    				title = URLEncoder.encode(title, "UTF-8");
 	    			} catch (UnsupportedEncodingException e1) {
 	    				e1.printStackTrace();
 	    			}
-	    			imgUrl = imgUrl.substring(0, indexOfSlash + 1) + title + "." + picType;
+	    			imgUrl = imgUrl.substring(0, indexOfSlash + 1) + title;
 	    		    String filePathDir = Constants.DEST_DIR_CAOLIU + postName;
 	    		    logger.info(imgUrl);
 	    			try {
-	    				FileUtil.downloadFile(imgUrl, filePathDir, title, picType);
+	    				FileUtil.downloadFile(imgUrl, filePathDir, title);
 	    			}catch (Exception e) {
 	    				e.printStackTrace();
 	    			}

@@ -9,14 +9,14 @@ import java.net.URLConnection;
 public class FileUtil {
 	
 	public static synchronized void downloadFile(String imgUrl, String filePathDir,
-			String fileName, String picType) throws Exception {
+			String fileName) throws Exception {
 		// 目标目录
 		File desPathFile = new File(filePathDir);
 		if (!desPathFile.exists()) {
 			desPathFile.mkdirs();
 		}
 		//文件绝对路径
-		String fullPath = filePathDir + File.separator + fileName + "." + picType;
+		String fullPath = filePathDir + File.separator + fileName;
 		File file = new File(fullPath);
 		if(file.exists()){
 			return ;
