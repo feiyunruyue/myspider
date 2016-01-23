@@ -44,6 +44,7 @@ public class ImgPipeline extends FilePersistentBase implements Pipeline {
 	    				e1.printStackTrace();
 	    			}
 	    			imgUrl = imgUrl.substring(0, indexOfSlash + 1) + title;
+	    			postName = postName.replaceAll("[\\/:\"\\*\\?\\|<>]", "");
 	    		    String filePathDir = Constants.DEST_DIR_CAOLIU + postName;
 	    		    logger.info(imgUrl);
 	    			try {
