@@ -1,5 +1,7 @@
 package com.icbc.myspider.util;
 
+import org.apache.http.HttpStatus;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -26,6 +28,12 @@ public class FileUtil {
 		con.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:38.0) Gecko/20100101 Firefox/38.0");
 		con.setConnectTimeout(5*1000);
 		int statusCode = con.getResponseCode();
+		if(statusCode == HttpStatus.SC_MOVED_PERMANENTLY || statusCode == HttpStatus.SC_MOVED_TEMPORARILY){
+			String location = con.getHeaderField("location");
+			downloadFile(location, filePathDir, fileName);
+			return ;
+		}
+
 		if(statusCode != 200){
 			return ;
 		}
