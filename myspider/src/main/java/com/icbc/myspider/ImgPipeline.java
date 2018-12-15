@@ -5,8 +5,8 @@ import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Task;
 import us.codecraft.webmagic.pipeline.Pipeline;
@@ -18,7 +18,7 @@ import com.icbc.myspider.util.FileUtil;
  * 处理页面解析后的信息
  */
 public class ImgPipeline extends FilePersistentBase implements Pipeline {
-	private Logger logger = Logger.getLogger(getClass());
+	private Logger logger = LoggerFactory.getLogger(getClass());
 	
 	public ImgPipeline() {
 		setPath(Constants.DEST_DIR_CAOLIU);

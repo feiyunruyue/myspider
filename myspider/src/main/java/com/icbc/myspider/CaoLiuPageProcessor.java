@@ -1,12 +1,12 @@
 package com.icbc.myspider;
 
-import java.util.List;
-
-import org.apache.log4j.Logger;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.processor.PageProcessor;
+
+import java.util.List;
 /*
  * 获取抓取url，解析html页面
  */
@@ -15,12 +15,13 @@ public class CaoLiuPageProcessor implements PageProcessor{
 	 private Site site = Site.me().setRetryTimes(5).setSleepTime(500).setTimeOut(3 * 60 * 1000)
 	            .setUserAgent("Mozilla/5.0 (Windows NT 6.1; WOW64; rv:38.0) Gecko/20100101 Firefox/38.0")
 	            .setCharset("gb2312");
-	  private Logger logger = Logger.getLogger(getClass());
-	  
+	private Logger logger = LoggerFactory.getLogger(getClass());
+
 	@Override
-	public void process(Page page) { 
+	public void process(Page page) {
+		logger.info("开始处理page, " + page.getRequest().getUrl());
 		//获取当前页面上的帖子地址
-		List<String> postUrls = page.getHtml().xpath("//tr[@class='tr3 t_one']/td/h3/a/@href").all();
+		List<String> postUrls = page.getHtml().xpath("//tr[@class='tr3 t_one tac']/td/h3/a/@href").all();
 		//将帖子地址加入要抓取的url队列
 		page.addTargetRequests(postUrls);
 		
