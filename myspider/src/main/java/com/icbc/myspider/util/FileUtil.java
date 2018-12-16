@@ -42,12 +42,6 @@ public class FileUtil {
 		httpGet.setConfig(config);
 		CloseableHttpResponse response = client.execute(httpGet);
 		int statusCode = response.getStatusLine().getStatusCode();
-		if(statusCode == HttpStatus.SC_MOVED_PERMANENTLY || statusCode == HttpStatus.SC_MOVED_TEMPORARILY){
-			String location = response.getFirstHeader("location").getValue();
-			downloadFile(location, filePathDir, fileName);
-			return ;
-		}
-
 		if(statusCode != 200){
 			logger.info("不是200");
 			return ;
