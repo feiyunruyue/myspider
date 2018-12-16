@@ -49,7 +49,7 @@ public class ImgPipeline extends FilePersistentBase implements Pipeline {
 	    			try {
 	    				FileUtil.downloadFile(imgUrl, filePathDir, title);
 	    			}catch (Exception e) {
-	    				logger.info("下载图片异常,imgUrl={}, title={}",imgUrl, title , e);
+	    				logger.info("下载图片异常,imgUrl={}, filePathDir={},title={}",imgUrl, filePathDir, title , e);
 	    			}
 	            }
            }
