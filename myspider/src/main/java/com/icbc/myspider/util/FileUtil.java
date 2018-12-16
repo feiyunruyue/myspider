@@ -1,10 +1,12 @@
 package com.icbc.myspider.util;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpStatus;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -37,22 +39,16 @@ public class FileUtil {
 		if(statusCode != 200){
 			return ;
 		}
-		InputStream in = con.getInputStream();
-
-		if(in != null){
-		try {
-			FileOutputStream fout = new FileOutputStream(file);
-			int len = -1;
-			byte[] tmp = new byte[1024 * 1024];
-			while ((len = in.read(tmp)) != -1) {
-				fout.write(tmp, 0, len);
-			}
-			fout.flush();
-			fout.close();
-		} finally {
-			in.close();
+		InputStream in = null;
+		OutputStream out = null;
+		try{
+			in = con.getInputStream();
+			out = new FileOutputStream(file);
+			IOUtils.copy(in, out);
+		}finally {
+			IOUtils.closeQuietly(in);
+			IOUtils.closeQuietly(out);
 		}
-	}
 	}
 	
 }
