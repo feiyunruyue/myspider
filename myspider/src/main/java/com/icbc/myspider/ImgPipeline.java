@@ -1,10 +1,7 @@
 package com.icbc.myspider;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.List;
-import java.util.Map;
-
+import com.icbc.myspider.util.Constants;
+import com.icbc.myspider.util.FileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import us.codecraft.webmagic.ResultItems;
@@ -12,8 +9,10 @@ import us.codecraft.webmagic.Task;
 import us.codecraft.webmagic.pipeline.Pipeline;
 import us.codecraft.webmagic.utils.FilePersistentBase;
 
-import com.icbc.myspider.util.Constants;
-import com.icbc.myspider.util.FileUtil;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.List;
+import java.util.Map;
 /*
  * 处理页面解析后的信息
  */
@@ -46,11 +45,11 @@ public class ImgPipeline extends FilePersistentBase implements Pipeline {
 	    			imgUrl = imgUrl.substring(0, indexOfSlash + 1) + title;
 	    			postName = postName.replaceAll("[\\/:\"\\*\\?\\|<>]", "");
 	    		    String filePathDir = Constants.DEST_DIR_CAOLIU + postName;
-	    		    logger.info(imgUrl);
+	    		    logger.info("开始处理图片，" + imgUrl);
 	    			try {
 	    				FileUtil.downloadFile(imgUrl, filePathDir, title);
 	    			}catch (Exception e) {
-	    				e.printStackTrace();
+	    				logger.info("下载图片异常,imgUrl={}, title={}",imgUrl, title , e);
 	    			}
 	            }
            }
