@@ -29,34 +29,7 @@ public class FileUtil {
 			return ;
 		}
 
-		HttpGet httpGet = new HttpGet(imgUrl);
-		CloseableHttpResponse response = null;
-		try {
-			response = client.execute(httpGet);
-			int statusCode = response.getStatusLine().getStatusCode();
-			if(statusCode == HttpStatus.SC_OK){
-				InputStream in = null;
-				OutputStream out = null;
-				try{
-					in = response.getEntity().getContent();
-					out = new FileOutputStream(file);
-					IOUtils.copy(in, out);
-				}catch (Exception e){
-					logger.info("保存图片异常,imgUrl={}",imgUrl, e);
-					return;
-				}finally {
-					IOUtils.closeQuietly(in);
-					IOUtils.closeQuietly(out);
-				}
-			}
-		} catch (IOException e) {
-			logger.info("下载图片异常,imgUrl={}",imgUrl, e);
-			return;
-		}finally {
-			httpGet.releaseConnection();
-			if(response != null){
-				response.close();
-			}
-		}
+		// TODO 线程池
+		new FileDownloadThread(client, imgUrl, file).run();
 	}
 }
