@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class CaoLiuPageProcessor implements PageProcessor{
 	
-	 private Site site = Site.me().setRetryTimes(5).setSleepTime(500).setTimeOut(3 * 60 * 1000)
+	 private Site site = Site.me().setRetryTimes(2).setSleepTime(500).setTimeOut(3 * 60 * 1000)
 	            .setUserAgent("Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36")
 	            .setCharset("gb2312");
 	private Logger logger = LoggerFactory.getLogger(getClass());

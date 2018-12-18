@@ -45,7 +45,7 @@ public class ImgPipeline extends FilePersistentBase implements Pipeline {
 	    			imgUrl = imgUrl.substring(0, indexOfSlash + 1) + title;
 	    			postName = postName.replaceAll("[\\/:\"\\*\\?\\|<>]", "");
 	    		    String filePathDir = Constants.DEST_DIR_CAOLIU + postName;
-	    		    logger.info("开始处理图片，" + imgUrl);
+	    		    logger.info("开始处理图片，postName={}, imgUrl={}" , postName, imgUrl);
 	    			try {
 	    				FileUtil.downloadFile(imgUrl, filePathDir, title);
 	    			}catch (Exception e) {

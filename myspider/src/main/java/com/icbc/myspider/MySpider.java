@@ -17,7 +17,7 @@ public class MySpider {
 				.addUrl(Constants.START_URL)
 				.addPipeline(new ImgPipeline())
 				.setScheduler(new FileCacheQueueScheduler(Constants.FILE_CACHE_URLS))
-				.thread(3)
+				.thread(1)
 				.run();
 				
 	}
