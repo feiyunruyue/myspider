@@ -2,6 +2,7 @@ package com.icbc.myspider;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.processor.PageProcessor;
@@ -10,6 +11,7 @@ import java.util.List;
 /*
  * 获取抓取url，解析html页面
  */
+@Service
 public class CaoLiuPageProcessor implements PageProcessor{
 	
 	 private Site site = Site.me().setRetryTimes(2).setSleepTime(500).setTimeOut(3 * 60 * 1000)

@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.*;
 
+
 public class FileDownloadThread implements Runnable {
 
     private static Logger logger = LoggerFactory.getLogger(FileUtil.class);
@@ -52,6 +53,6 @@ public class FileDownloadThread implements Runnable {
         }
 
         long endTime = System.currentTimeMillis();
-        logger.info("耗时{}ms，imgUrl={}", endTime - startTime, imgUrl);
+        logger.info("下载耗时{}ms，imgUrl={}", endTime - startTime, imgUrl);
     }
 }
