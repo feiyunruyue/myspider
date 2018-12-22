@@ -1,5 +1,6 @@
 package com.icbc.myspider;
 
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import us.codecraft.webmagic.Spider;
 import us.codecraft.webmagic.processor.PageProcessor;
@@ -18,16 +19,16 @@ import javax.annotation.Resource;
 @Service
 public class MySpider {
 	@Resource
-	private ImgPipeline imgPipeline;
+	private DbPipeline dbPipeline;
 	@Resource
 	private PageProcessor caoLiuPageProcessor;
 
 	public void start() {
 		Spider.create(caoLiuPageProcessor)
 				.addUrl(Constants.START_URL)
-				.addPipeline(imgPipeline)
+				.addPipeline(dbPipeline)
 				.setScheduler(new FileCacheQueueScheduler(Constants.FILE_CACHE_URLS))
-				.thread(1)
+				.thread(3)
 				.run();
 				
 	}
