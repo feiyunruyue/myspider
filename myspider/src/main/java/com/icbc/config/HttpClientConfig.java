@@ -27,11 +27,10 @@ import java.security.cert.X509Certificate;
 @Configuration
 public class HttpClientConfig {
 
-    private static final int RETRY_TIMES = 3;
+    private static final int RETRY_TIMES = 0;
     private static final int TIME_OUT = 10000; // 超时时间
     private static final String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36";
     private static Logger logger = LoggerFactory.getLogger(HttpClientConfig.class);
-
 
     private static SSLConnectionSocketFactory buildSSLConnectionSocketFactory() {
         try {

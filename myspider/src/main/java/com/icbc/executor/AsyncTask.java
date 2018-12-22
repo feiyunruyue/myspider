@@ -1,5 +1,6 @@
 package com.icbc.executor;
 
+import com.icbc.model.FutureImgResult;
 import com.icbc.model.ImgInfo;
 import com.icbc.myspider.util.Constants;
 import lombok.extern.slf4j.Slf4j;
@@ -23,9 +24,9 @@ public class AsyncTask {
     @Resource(name = "myClient")
     private CloseableHttpClient client;
 
-    @Async
-    public Future<String> downLoadImg(ImgInfo imgInfo) {
-        log.info("Task1 started.");
+    @Async("downLoadPool")
+    public Future<FutureImgResult> downLoadImg(ImgInfo imgInfo) {
+        log.info("Task started. imgInfo={}", imgInfo);
         long startTime = System.currentTimeMillis();
         String imgUrl = imgInfo.getUrl();
         String title = imgInfo.getTitle();
@@ -36,7 +37,11 @@ public class AsyncTask {
         String fullPath = filePathDir + File.separator + imgName;
         File file = new File(fullPath);
         if (file.exists()) {
-            return new AsyncResult<>("xxx");
+            FutureImgResult result = new FutureImgResult();
+            result.setId(imgInfo.getId());
+            result.setSuccess(true);
+            result.setMsg("文件已存在");
+            return new AsyncResult<>(result);
         }
         HttpGet httpGet = new HttpGet(imgUrl);
         CloseableHttpResponse response = null;
@@ -52,6 +57,11 @@ public class AsyncTask {
                     IOUtils.copy(in, out);
                 } catch (Exception e) {
                     log.info("保存图片异常,imgUrl={}", imgUrl, e);
+                    FutureImgResult result = new FutureImgResult();
+                    result.setId(imgInfo.getId());
+                    result.setSuccess(false);
+                    result.setMsg("保存图片异常");
+                    return new AsyncResult<>(result);
                 } finally {
                     IOUtils.closeQuietly(in);
                     IOUtils.closeQuietly(out);
@@ -59,13 +69,22 @@ public class AsyncTask {
             }
         } catch (IOException e) {
             log.info("下载图片异常,imgUrl={}", imgUrl, e);
+            FutureImgResult result = new FutureImgResult();
+            result.setId(imgInfo.getId());
+            result.setSuccess(false);
+            result.setMsg("下载图片异常");
+            return new AsyncResult<>(result);
         } finally {
             httpGet.releaseConnection();
         }
 
         long endTime = System.currentTimeMillis();
         log.info("下载图片，耗时{}, imgUrl={}", endTime - startTime, imgUrl);
-        return new AsyncResult<>("Task1 accomplished!");
+        FutureImgResult result = new FutureImgResult();
+        result.setId(imgInfo.getId());
+        result.setSuccess(true);
+        result.setMsg("下载成功");
+        return new AsyncResult<>(result);
     }
 
 }

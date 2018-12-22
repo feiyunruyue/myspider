@@ -11,11 +11,18 @@
     </insert>
 
     <select id="getList" resultType="com.icbc.model.ImgInfo">
-        select * from img_info where status=#{status} limit 1000
+        select * from img_info where status=#{status} limit 500
     </select>
 
     <update id="updateStatusById">
         update img_info set status=#{status} where id=#{id}
     </update>
 
+    <update id="updateStatusByIdList">
+        update img_info set status=#{status} where id in (
+        <foreach collection="list" item="item" index="index" separator=",">
+            #{item}
+        </foreach>
+        )
+    </update>
   </mapper>

@@ -10,17 +10,23 @@ import java.util.concurrent.Executor;
 
 @Configuration
 @EnableAsync
-public class TaskExecutorConfig  {
+public class TaskExecutorConfig {
 
-    /** Set the ThreadPoolExecutor's core pool size. */
-    private int corePoolSize = 5;
-    /** Set the ThreadPoolExecutor's maximum pool size. */
-    private int maxPoolSize = 10;
-    /** Set the capacity for the ThreadPoolExecutor's BlockingQueue. */
-    private int queueCapacity = 2000;
+    /**
+     * Set the ThreadPoolExecutor's core pool size.
+     */
+    private int corePoolSize = 3;
+    /**
+     * Set the ThreadPoolExecutor's maximum pool size.
+     */
+    private int maxPoolSize = 5;
+    /**
+     * Set the capacity for the ThreadPoolExecutor's BlockingQueue.
+     */
+    private int queueCapacity = 500;
 
 
-    @Bean
+    @Bean("downLoadPool")
     public Executor getAsyncExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         executor.setCorePoolSize(corePoolSize);
@@ -28,7 +34,5 @@ public class TaskExecutorConfig  {
         executor.setQueueCapacity(queueCapacity);
         executor.initialize();
         return executor;
-
-
     }
 }
