@@ -3,6 +3,7 @@ package com.icbc.mapper;
 import com.icbc.model.ImgInfo;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -13,4 +14,8 @@ public interface ImgInfoMapper {
     int insert(ImgInfo info);
 
     int insertBatch(List<ImgInfo> list);
+
+    List<ImgInfo> getList(@Param("status") int status);
+
+    int updateStatusById(@Param("status") int staus, @Param("id")int id);
 }

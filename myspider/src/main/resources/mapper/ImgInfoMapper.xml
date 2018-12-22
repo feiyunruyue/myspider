@@ -10,4 +10,12 @@
         </foreach>
     </insert>
 
+    <select id="getList" resultType="com.icbc.model.ImgInfo">
+        select * from img_info where status=#{status} limit 1000
+    </select>
+
+    <update id="updateStatusById">
+        update img_info set status=#{status} where id=#{id}
+    </update>
+
   </mapper>

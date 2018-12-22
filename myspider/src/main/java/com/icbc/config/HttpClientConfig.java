@@ -1,4 +1,4 @@
-package com.icbc.myspider.util;
+package com.icbc.config;
 
 import org.apache.http.config.Registry;
 import org.apache.http.config.RegistryBuilder;
@@ -13,6 +13,8 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
@@ -22,12 +24,13 @@ import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
-public class MyHttpClient {
+@Configuration
+public class HttpClientConfig {
 
     private static final int RETRY_TIMES = 3;
     private static final int TIME_OUT = 10000; // 超时时间
     private static final String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36";
-    private static Logger logger = LoggerFactory.getLogger(MyHttpClient.class);
+    private static Logger logger = LoggerFactory.getLogger(HttpClientConfig.class);
 
 
     private static SSLConnectionSocketFactory buildSSLConnectionSocketFactory() {
@@ -57,15 +60,15 @@ public class MyHttpClient {
             public X509Certificate[] getAcceptedIssuers() {
                 return null;
             }
-
         };
 
         SSLContext sc = SSLContext.getInstance("SSLv3");
-        sc.init(null, new TrustManager[] { trustManager }, null);
+        sc.init(null, new TrustManager[]{trustManager}, null);
         return sc;
     }
 
-    public static CloseableHttpClient generateClient() {
+    @Bean(name = "myClient")
+    public CloseableHttpClient client() {
         Registry<ConnectionSocketFactory> reg = RegistryBuilder.<ConnectionSocketFactory>create()
                 .register("http", PlainConnectionSocketFactory.INSTANCE)
                 .register("https", buildSSLConnectionSocketFactory())

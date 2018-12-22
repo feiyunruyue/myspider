@@ -6,9 +6,11 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @MapperScan("com.icbc.mapper")
+@EnableScheduling
 @Slf4j
 public class Application {
     public static void main(String[] args) {
@@ -16,6 +18,6 @@ public class Application {
         ConfigurableApplicationContext context = app.run(args);
         log.info("started: {}", context);
         MySpider mySpider = context.getBean("mySpider", MySpider.class);
-        mySpider.start();
+//        mySpider.start();
     }
 }
