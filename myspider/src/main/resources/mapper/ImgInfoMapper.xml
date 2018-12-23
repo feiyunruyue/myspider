@@ -11,7 +11,7 @@
     </insert>
 
     <select id="getList" resultType="com.icbc.model.ImgInfo">
-        select * from img_info where status=#{status} limit 500
+        select * from img_info where status=#{status} limit 200
     </select>
 
     <update id="updateStatusById">

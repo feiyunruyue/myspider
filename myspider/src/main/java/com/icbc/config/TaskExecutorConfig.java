@@ -23,7 +23,7 @@ public class TaskExecutorConfig {
     /**
      * Set the capacity for the ThreadPoolExecutor's BlockingQueue.
      */
-    private int queueCapacity = 500;
+    private int queueCapacity = 195;
 
 
     @Bean("downLoadPool")
